@@ -13,4 +13,9 @@
     <!-- Set the parameters for the EKF node -->
     <rosparam command="load" file="$(find my_fused_localization)/config/ekf_localization.yaml" />
   </node>
+  <node pkg="rosbag" type="record" name="bag_recorder_tf" args="-O output.bag /tf" output="screen" />
+  <node pkg="rosbag" type="record" name="bag_recorder_odom" args="-O output.bag /odometry/filtered" output="screen" />
+  <node pkg="rosbag" type="record" name="bag_recorder_acc" args="-O output.bag /acceleration/filtered" output="screen" />
+  <node pkg="rosbag" type="record" name="bag_recorder_imu" args="-O output.bag /imu_data" output="screen" />
+
 </launch>
