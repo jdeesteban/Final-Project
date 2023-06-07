@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
 
     // Set up the publisher to publish the received serial data
-    ros::Publisher serial_pub = nh.advertise<std_msgs::String>("serial_data", 1000);
+    ros::Publisher serial_pub = nh.advertise<std_msgs::String>("serial_data", 100);
 
     // Set up the serial port
     serial::Serial ser;
@@ -26,7 +26,7 @@ int main(int argc, char** argv)
     if (ser.isOpen()) {
         ROS_INFO_STREAM("Serial port opened.");
 
-        ros::Rate loop_rate(10);  // Adjust the rate according to your requirements
+        ros::Rate loop_rate(50);  // Adjust the rate according to your requirements
 
         while (ros::ok()) {
             if (ser.available()) {

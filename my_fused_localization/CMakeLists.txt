@@ -7,14 +7,6 @@ project(my_fused_localization)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
-  robot_localization
-  roscpp
-  rospy
-  std_msgs
-  serial
-  sensor_msgs
-)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -89,6 +81,13 @@ find_package(catkin REQUIRED COMPONENTS
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * uncomment the "generate_dynamic_reconfigure_options" section below
 ##     and list every .cfg file to be processed
+find_package(catkin REQUIRED COMPONENTS
+    roscpp
+    rospy
+    std_msgs
+    serial
+    sensor_msgs
+)
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 # generate_dynamic_reconfigure_options(
@@ -108,8 +107,9 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES my_fused_localization
-#  CATKIN_DEPENDS robot_localization
+#  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
+
   CATKIN_DEPENDS roscpp std_msgs serial
 )
 

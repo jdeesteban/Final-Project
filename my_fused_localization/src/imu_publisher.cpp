@@ -28,6 +28,8 @@
 int serial_port = open("/dev/ttyUSB0", O_RDWR);
 std::string imuData;
 ros::Publisher imu_pub;
+float xaccel;
+float yaccel;
 
 //ros::Subscriber filteredSub = nh.subscribe("/odometry/filtered", 1, &filterCallback);
 void serialCallback(const std_msgs::String::ConstPtr& msg)
@@ -59,12 +61,18 @@ void serialCallback(const std_msgs::String::ConstPtr& msg)
     if (numbers.size() == 9) {
         // Assign the extracted numbers to the corresponding attributes of the Imu message
         imu_msg.linear_acceleration.x = numbers[0];
-        imu_msg.linear_acceleration.y = numbers[1];
-        imu_msg.linear_acceleration.z = numbers[2];
+        //numbers[0];
 
-        imu_msg.orientation.x =  numbers[6];
-        imu_msg.orientation.y =  numbers[7];
-        imu_msg.orientation.z =  numbers[8];
+        imu_msg.linear_acceleration.y = numbers[1];
+        //numbers[1];
+        imu_msg.linear_acceleration.z = numbers[2];
+        tf2::Quaternion quat;
+        quat.setRPY(numbers[6],  numbers[7], numbers[8]);
+        imu_msg.orientation=tf2::toMsg(quat);
+        /*
+        imu_msg.orientation.x =numbers[6]  ;
+        imu_msg.orientation.y = numbers[7];
+        imu_msg.orientation.z =  numbers[8];//*/
         imu_msg.angular_velocity.x = numbers[3];
         imu_msg.angular_velocity.y = numbers[4];
         imu_msg.angular_velocity.z = numbers[5];
